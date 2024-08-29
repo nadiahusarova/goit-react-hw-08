@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts, deleteContact } from "../../redux/contactsOps";
-import { selectFilteredContacts } from "../../redux/contactsSlice";
+import { fetchContacts, deleteContact } from "../../redux/contacts/contactsOps";
+import { selectFilteredContacts } from "../../redux/contacts/contactsSlice";
 import s from "./ContactList.module.css";
 import Contact from "../Contact/Contact";
 
@@ -32,7 +32,7 @@ const ContactList = () => {
   return (
     <ul className={s.contactList}>
       {contacts.map((contact) => (
-        <li key={contact.id}>
+        <li key={contact.id} className={s.contactListItem}>
           <Contact contact={contact} handleDelete={handleDelete} />
         </li>
       ))}

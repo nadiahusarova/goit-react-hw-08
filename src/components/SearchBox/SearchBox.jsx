@@ -9,7 +9,12 @@ const SearchBox = ({ onSearch }) => {
   return (
     <label className={s.label}>
       Find contact by name
-      <input className={s.input} type="text" onChange={handleChange} />
+      <input 
+        className={s.input} 
+        type="text" 
+        onChange={handleChange} 
+        placeholder="Type to search..." 
+      />
     </label>
   );
 };

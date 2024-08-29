@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+.username {
+  margin-right: 20px;
+  color: #fff;
+}
+.button {
+  padding: 5px 10px;
+  color: white;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
