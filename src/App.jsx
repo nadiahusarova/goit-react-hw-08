@@ -12,6 +12,7 @@ import LoginForm from "./pages/LoginPage/LoginPage";
 import RegisterForm from "./pages/RegistrationPage/RegistrationPage";
 import ContactsPage from "./pages/ContactsPage/ContactsPage";
 
+
 const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);

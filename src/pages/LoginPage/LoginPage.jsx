@@ -20,26 +20,26 @@ const LoginForm = () => {
     return <Navigate to="/" />;
   }
   return (
-    <div className={s.loginDiv}>
+    <div className={s.wrap}>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form className={s.loginForm}>
+        <Form className={s.form}>
+          <Field className={s.field} name="email" placeholder="enter email" />
           <Field
-            className={s.loginField}
-            name="email"
-            placeholder="enter email"
-          ></Field>
-          <Field
-            className={s.loginField}
+            className={s.field}
             name="password"
             type="password"
             placeholder="enter password"
-          ></Field>
-          <button className={s.loginButton} type="submit">
+          />
+          <button className={s.button} type="submit">
             Login
           </button>
-          <p className={s.loginParagraph}>
-            You don`t have account?<NavLink to="/register">Sing up</NavLink>
-          </p>
+
+          <div className={s.div}>
+      <div className={s.textContainer}>
+        <p className={s.txt}>You don’t have an account?</p>
+        <NavLink to="/register" className={s.link}>Sign up</NavLink>
+      </div>
+    </div>
         </Form>
       </Formik>
     </div>

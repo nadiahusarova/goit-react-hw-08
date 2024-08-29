@@ -6,18 +6,23 @@
   display: flex;
   gap: 15px;
   flex-direction: column;
+  background-color: rgba(71, 71, 70, 0.863);
   padding: 28px 40px;
   border: 2px solid rgb(8, 196, 18);
-  border-radius: 6px;
+  border-radius: 40px;
   & button {
-    background-color: rgba(18, 192, 18, 0.884);
+    background: rgb(8, 196, 18);
+    box-shadow: 0 5px 0 #039903e1;
     color: aliceblue;
-    border: 1px solid rgb(255, 255, 255);
+    border: none;
+    border-radius: 40px;
     padding: 10px;
   }
   & button:hover {
-    background-color: #039903e1;
-    border: 1px solid rgb(130, 184, 125);
+    background-color: #07f107f1;
+    box-shadow: none;
+  position: relative;
+  top: 5px;
   }
 }
 
@@ -36,7 +41,7 @@
 .input {
   padding: 6px;
   border: 2px solid rgb(8, 196, 18);
-  border-radius: 6px;
+  border-radius: 15px;
 }
 
 .input:hover {
@@ -45,51 +50,3 @@
 
 
 
-.contactsForm {
-  font-family: "Montserrat";
-  height: auto;
-  width: 450px;
-  border: 2px solid #00796b;
-  border-radius: 15px;
-  background-color: #ffffff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  box-sizing: border-box;
-}
-
-.contactsField {
-  display: block;
-  width: calc(100% - 40px);
-  margin: 10px auto;
-  padding: 12px;
-  border: 1px solid #b2dfdb;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s;
-}
-
-.contactsField:focus {
-  border-color: #004d40;
-  outline: none;
-}
-
-.contactsButton {
-  margin: auto;
-  display: flex;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 5px;
-  background-color: #004d40;
-  color: #fff;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.contactsButton:hover {
-  background-color: #00796b;
-}
-
-.contactsError {
-  color: red;
-}

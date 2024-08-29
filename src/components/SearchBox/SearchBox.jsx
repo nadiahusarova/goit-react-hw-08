@@ -8,16 +8,16 @@ const SearchBox = () => {
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <label className={s.label}>
       <input
-        className={s.searchInput}
+        className={s.input}
         type="text"
         value={filterNumber}
         onChange={(e) => {
           dispatch(changeFilter(e.target.value));
         }}
       />
-    </div>
+    </label>
   );
 };
 

@@ -8,10 +8,13 @@ import AuthNavigation from "../AuthNav/AuthNav";
 const AppBar = () => {
   const user = useSelector(selectUser);
   const loggedIn = useSelector(selectLoggedIn);
+
   return (
-    <div className={s.divInfo}>
-      <h2 className={s.email}>{user.email}</h2>
-      <h3 className={s.name}>{user.name}</h3>
+    <div className={s.div}>
+      <div className={s.userInfo}>
+        <h2 className={s.email}>{user.email}</h2>
+        <h3 className={s.name}>{user.name}</h3>
+      </div>
       <Navigation />
       {!loggedIn && <AuthNavigation />}
       {loggedIn && <UserMenu />}

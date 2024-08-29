@@ -7,26 +7,24 @@
 
 .button {
   border: none;
-  border-radius: 10px;
+  border-radius: 50px;
   text-decoration: none;
   color: white;
-  background: #0b63f6;
-  box-shadow: 0 5px 0 #003cc5;
+  background: rgb(8, 196, 18);
+  box-shadow: 0 5px 0 #039903e1;
   width: 90px;
   height: 40px;
 }
 
 .button:hover {
-  background: #003cc5;
+  background: #d60505f1;
   box-shadow: none;
   position: relative;
   top: 5px;
 }
 
 .text {
-  text-decoration: none;
+  font-size: 16px;
   color: #fff;
-  font-size: 1.2em;
-  transition: color 0.3s ease;
   margin-right: 40px;
 }

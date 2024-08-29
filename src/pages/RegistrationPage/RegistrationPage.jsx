@@ -16,31 +16,34 @@ const RegisterForm = () => {
     options.resetForm();
   };
   return (
-    <div className={s.regDiv}>
+    <div className={s.wrap}>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form className={s.regForm}>
+        <Form className={s.form}>
           <Field
-            className={s.regField}
+            className={s.field}
             name="name"
             placeholder="enter your name"
-          ></Field>
+          />
           <Field
-            className={s.regField}
+            className={s.field}
             name="email"
             placeholder="enter your email"
-          ></Field>
+          />
           <Field
-            className={s.regField}
+            className={s.field}
             name="password"
             type="password"
             placeholder="enter your password"
-          ></Field>
-          <button className={s.regButton} type="submit">
+          />
+          <button className={s.button} type="submit">
             Register
           </button>
-          <p className={s.regParagraph}>
-            You already have account?<NavLink to="/login">Sign in</NavLink>
-          </p>
+          <div className={s.div}>
+            <div className={s.textContainer}>
+              <p className={s.txt}>You already have account?</p>
+              <NavLink to="/login" className={s.link}>Sign in</NavLink>
+            </div>
+          </div>
         </Form>
       </Formik>
     </div>
