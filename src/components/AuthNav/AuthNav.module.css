@@ -7,3 +7,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.NavLink {
+  text-decoration: none;
+  color: #048600; 
+  font-size: 18px;
+}
+
+.NavLink:hover {
+  
+  color: #0afa02;  
+}

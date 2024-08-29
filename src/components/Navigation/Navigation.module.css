@@ -5,16 +5,16 @@
 
 .NavLink {
   text-decoration: none;
-  color: #555; /* Колір тексту для звичайних посилань */
+  color: #555; 
   font-size: 18px;
 }
 
 .NavLink.active {
-  color: #06ac00; /* Колір тексту для активного посилання */
+  color: #06ac00; 
 }
 
 .NavLink:hover {
-  color: #0afa02; /* Колір тексту при наведенні */
+  color: #0afa02; 
 }
 
 
