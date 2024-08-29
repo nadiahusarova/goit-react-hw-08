@@ -1,57 +1,57 @@
-import React, { Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { refreshUser } from './redux/auth/operations';
-import { selectIsFetchingCurrentUser } from './redux/auth/selectors';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import PublicRoute from './components/PublicRoute/PublicRoute';
-import Layout from './components/Layout/Layout';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
-
-const HomePage = React.lazy(() => import('./pages/HomePage/HomePage'));
-const RegistrationPage = React.lazy(() => import('./pages/RegistrationPage/RegistrationPage'));
-const LoginPage = React.lazy(() => import('./pages/LoginPage/LoginPage'));
-const ContactsPage = React.lazy(() => import('./pages/ContactsPage/ContactsPage'));
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
+import HomePage from "./pages/HomePage/HomePage";
+import NotFound from "./pages/NotFound/NotFound";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getMeThunk } from "./redux/auth/operations";
+import { PrivateRoure } from "./Routes/PrivateRoute";
+import { RestrictedRoute } from "./Routes/RestrictedRoute";
+import { selectIsRefreshing } from "./redux/auth/selectors";
+import LoginForm from "./pages/LoginPage/LoginPage";
+import RegisterForm from "./pages/RegistrationPage/RegistrationPage";
+import ContactsPage from "./pages/ContactsPage/ContactsPage";
 
 const App = () => {
   const dispatch = useDispatch();
-  const isFetchingCurrentUser = useSelector(selectIsFetchingCurrentUser);
-
-  React.useEffect(() => {
-    dispatch(refreshUser());
+  const isRefreshing = useSelector(selectIsRefreshing);
+  useEffect(() => {
+    dispatch(getMeThunk());
   }, [dispatch]);
 
-  return (
-    isFetchingCurrentUser ? (
-      <p>Loading...</p>
-    ) : (
-      <Suspense fallback={<p>Loading...</p>}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route
-              path="/register"
-              element={
-                <PublicRoute restricted redirectTo="/contacts" element={<RegistrationPage />} />
-              }
-            />
-            <Route
-              path="/login"
-              element={
-                <PublicRoute restricted redirectTo="/contacts" element={<LoginPage />} />
-              }
-            />
-            <Route
-              path="/contacts"
-              element={
-                <PrivateRoute redirectTo="/login" element={<ContactsPage />} />
-              }
-            />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    )
+  return isRefreshing ? null : (
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoure>
+                <ContactsPage />
+              </PrivateRoure>
+            }
+          />
+        </Route>
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute>
+              <LoginForm />
+            </RestrictedRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute>
+              <RegisterForm />
+            </RestrictedRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 

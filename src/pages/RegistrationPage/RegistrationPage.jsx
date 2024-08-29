@@ -1,39 +1,50 @@
-
-
-import { Formik, Form, Field } from 'formik';
-import { useDispatch } from 'react-redux';
-import { register } from '../../redux/auth/operations';
+import { Field, Form, Formik } from "formik";
+import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { registerThunk } from "../../redux/auth/operations";
 import s from "./RegistrationPage.module.css";
 
-const RegistrationPage = () => {
+const RegisterForm = () => {
   const dispatch = useDispatch();
-
-  const handleSubmit = (values) => {
-    dispatch(register(values));
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
   };
-
+  const handleSubmit = (values, options) => {
+    dispatch(registerThunk(values));
+    options.resetForm();
+  };
   return (
-    <div>
-      <h1>Registration</h1>
-      <Formik
-        initialValues={{ name: '', email: '', password: '' }}
-        onSubmit={(values) => handleSubmit(values)}
-      >
-        <Form>
-          <label className={s.label}  htmlFor="name">Name</label>
-          <Field name="name" type="text" />
-          
-          <label className={s.label} htmlFor="email">Email</label>
-          <Field name="email" type="email" />
-          
-          <label className={s.label} htmlFor="password">Password</label>
-          <Field name="password" type="password" />
-          
-          <button className={s.button} type="submit">Register</button>
+    <div className={s.regDiv}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Form className={s.regForm}>
+          <Field
+            className={s.regField}
+            name="name"
+            placeholder="enter your name"
+          ></Field>
+          <Field
+            className={s.regField}
+            name="email"
+            placeholder="enter your email"
+          ></Field>
+          <Field
+            className={s.regField}
+            name="password"
+            type="password"
+            placeholder="enter your password"
+          ></Field>
+          <button className={s.regButton} type="submit">
+            Register
+          </button>
+          <p className={s.regParagraph}>
+            You already have account?<NavLink to="/login">Sign in</NavLink>
+          </p>
         </Form>
       </Formik>
     </div>
   );
 };
 
-export default RegistrationPage;
+export default RegisterForm;

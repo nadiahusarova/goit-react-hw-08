@@ -1,5 +1,19 @@
-.link {
-  margin-right: 20px;
-  color: #61dafb;
-  text-decoration: none;
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+}
+
+.navLink {
+  color: white;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.navLink.active,
+.navLink:hover {
+  background-color: #575757;
 }

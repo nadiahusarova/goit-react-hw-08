@@ -1,15 +1,15 @@
-import React from "react";
-import { ErrorMessage, Field, Form, Formik } from "formik";
+
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contacts/operations";
+import { nanoid } from "nanoid";
 import s from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contacts/operations";
 
 const ContactForm = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.items);
+  const initialValues = { name: "", number: "" };
 
-  const formSchema = Yup.object({
+  const validationSchema = Yup.object({
     name: Yup.string()
       .required("Please fill in the field")
       .min(3, "Name must be longer than 2 letters")
@@ -20,48 +20,45 @@ const ContactForm = () => {
       .max(12, "Number must be shorter than 13 numbers"),
   });
 
-  const initialValues = {
-    name: "",
-    number: "",
-  };
+  const dispatch = useDispatch();
 
-  const handleSubmit = (values, actions) => {
-    const contactExists = contacts.some(
-      (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
-    );
+  const handleSubmit = (data, actions) => {
+    const newContact = { ...data, id: nanoid() };
 
-    if (contactExists) {
-      alert(`${values.name} is already in contacts.`);
-    } else {
-      dispatch(addContact(values));
-      actions.resetForm();
-    }
+    dispatch(addContact(newContact));
+    actions.resetForm();
   };
 
   return (
-    <div className={s.formwrapper}>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={formSchema}
-      >
-        <Form className={s.form}>
-          <label className={s.label}>
-            <span>Name</span>
-            <Field name="name" className={s.input} />
-            <ErrorMessage name="name" component="span" className={s.error} />
-          </label>
-          <label className={s.label}>
-            <span>Number</span>
-            <Field name="number" className={s.input} />
-            <ErrorMessage name="number" component="span" className={s.error} />
-          </label>
-          <button type="submit" className={s.button}>
-            Add contact
-          </button>
-        </Form>
-      </Formik>
-    </div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form className={s.contactsForm}>
+        <div>
+          <label htmlFor="name">Name</label>
+          <Field className={s.contactsField} id="name" name="name" />
+          <ErrorMessage
+            className={s.contactsError}
+            name="name"
+            component="div"
+          />
+        </div>
+        <div>
+          <label htmlFor="number">Number</label>
+          <Field className={s.contactsField} id="number" name="number" />
+          <ErrorMessage
+            className={s.contactsError}
+            name="number"
+            component="div"
+          />
+        </div>
+        <button className={s.contactsButton} type="submit">
+          Add Contact
+        </button>
+      </Form>
+    </Formik>
   );
 };
 

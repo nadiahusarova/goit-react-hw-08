@@ -1,17 +1,21 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from '../../redux/auth/selectors'; // Переконайтесь, що цей селектор правильно експортується
-import AuthNav from '../AuthNav/AuthNav'; // Переконайтесь, що AuthNav правильно імпортовано
-import UserMenu from '../UserMenu/UserMenu'; // Переконайтесь, що UserMenu правильно імпортовано
-import s from './AppBar.module.css'; // Переконайтесь, що стилі коректні
+import s from "./AppBar.module.css";
+import { selectLoggedIn, selectUser } from "../../redux/auth/selectors";
+import UserMenu from "../UserMenu/UserMenu";
+import { useSelector } from "react-redux";
+import Navigation from "../Navigation/Navigation";
+import AuthNavigation from "../AuthNav/AuthNav";
 
 const AppBar = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
+  const user = useSelector(selectUser);
+  const loggedIn = useSelector(selectLoggedIn);
   return (
-    <header className={s.header}>
-      {isLoggedIn ? <UserMenu /> : <AuthNav />}
-    </header>
+    <div className={s.divInfo}>
+      <h2 className={s.email}>{user.email}</h2>
+      <h3 className={s.name}>{user.name}</h3>
+      <Navigation />
+      {!loggedIn && <AuthNavigation />}
+      {loggedIn && <UserMenu />}
+    </div>
   );
 };
 

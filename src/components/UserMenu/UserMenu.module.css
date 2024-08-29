@@ -1,16 +1,32 @@
-.container {
+.buttonDiv {
   display: flex;
+  justify-content: center;
   align-items: center;
+  padding-right: 30px;
 }
-.username {
-  margin-right: 20px;
-  color: #fff;
-}
+
 .button {
-  padding: 5px 10px;
-  color: white;
-  background-color: #61dafb;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  background: #0b63f6;
+  box-shadow: 0 5px 0 #003cc5;
+  width: 90px;
+  height: 40px;
+}
+
+.button:hover {
+  background: #003cc5;
+  box-shadow: none;
+  position: relative;
+  top: 5px;
+}
+
+.text {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+  margin-right: 40px;
 }
