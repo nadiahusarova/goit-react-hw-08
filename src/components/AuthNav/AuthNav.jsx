@@ -4,10 +4,20 @@ import s from "./AuthNav.module.css";
 const AuthNavigation = () => {
   return (
     <nav className={s.nav}>
-      <NavLink className={s.navlLink} to="/register">
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? `${s.navLink} ${s.active}` : s.navLink
+        }
+        to="/register"
+      >
         Registration
       </NavLink>
-      <NavLink className={s.navLink} to="/login">
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? `${s.navLink} ${s.active}` : s.navLink
+        }
+        to="/login"
+      >
         Login
       </NavLink>
     </nav>

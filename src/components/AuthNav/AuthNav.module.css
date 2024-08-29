@@ -1,20 +1,15 @@
 .nav {
   display: flex;
-  flex-direction: row;
-  gap: 30px;
-  color: white;
-  margin-right: 30px;
-  justify-content: center;
-  align-items: center;
+  gap: 20px;
+  margin-right: 20px;
 }
 
-.NavLink {
+.navLink {
   text-decoration: none;
-  color: #048600; 
+  color: #078d07; 
   font-size: 18px;
 }
 
-.NavLink:hover {
-  
-  color: #0afa02;  
+.navLink:hover {
+  color: #11cc0a; 
 }
