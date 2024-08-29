@@ -1,70 +1,57 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchContacts } from "./redux/contacts/contactsOps";
-import ContactForm from "./components/ContactForm/ContactForm";
-import ContactList from "./components/ContactList/ContactList";
-import SearchBox from "./components/SearchBox/SearchBox";
-import { changeFilter } from "./redux/filters/filtersSlice";
-import s from "./App.module.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute";
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import LoginPage from "./pages/LoginPage/LoginPage"; 
-import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
-import { Layout } from "./components/Layout/Layout"; 
+import React, { Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshUser } from './redux/auth/operations';
+import { selectIsFetchingCurrentUser } from './redux/auth/selectors';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import PublicRoute from './components/PublicRoute/PublicRoute';
+import Layout from './components/Layout/Layout';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+
+const HomePage = React.lazy(() => import('./pages/HomePage/HomePage'));
+const RegistrationPage = React.lazy(() => import('./pages/RegistrationPage/RegistrationPage'));
+const LoginPage = React.lazy(() => import('./pages/LoginPage/LoginPage'));
+const ContactsPage = React.lazy(() => import('./pages/ContactsPage/ContactsPage'));
 
 const App = () => {
   const dispatch = useDispatch();
+  const isFetchingCurrentUser = useSelector(selectIsFetchingCurrentUser);
 
-  useEffect(() => {
-    dispatch(fetchContacts());
+  React.useEffect(() => {
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  const handleSearch = (value) => {
-    dispatch(changeFilter(value));
-  };
-
   return (
-    <Router>
-      <Layout>
+    isFetchingCurrentUser ? (
+      <p>Loading...</p>
+    ) : (
+      <Suspense fallback={<p>Loading...</p>}>
         <Routes>
-     
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute>
-                <LoginPage />
-              </RestrictedRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <RestrictedRoute>
-                <RegistrationPage />
-              </RestrictedRoute>
-            }
-          />
-
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <div className={s.wrap}>
-                  <h1 className={s.h1}>Phonebook</h1>
-                  <ContactForm />
-                  <SearchBox onSearch={handleSearch} />
-                  <ContactList />
-                </div>
-              </PrivateRoute>
-            }
-          />
-
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute restricted redirectTo="/contacts" element={<RegistrationPage />} />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute restricted redirectTo="/contacts" element={<LoginPage />} />
+              }
+            />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute redirectTo="/login" element={<ContactsPage />} />
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
         </Routes>
-      </Layout>
-    </Router>
+      </Suspense>
+    )
   );
 };
 

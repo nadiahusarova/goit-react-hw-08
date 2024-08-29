@@ -1,14 +1,13 @@
-import { Link } from "react-router-dom";
-import s from "./NotFoundPage.module.css";
+import { Link } from 'react-router-dom';
+import s from './NotFoundPage.module.css';
 
-const NotFoundPage = () => (
-  <div className={s.container}>
-    <h1>404 - Сторінка не знайдена</h1>
-    <p>На жаль, така сторінка не існує.</p>
-    <Link to="/" className={s.link}>
-      Повернутись на головну
-    </Link>
-  </div>
-);
+const NotFoundPage = () => {
+  return (
+    <div className={s.container}>
+      <h1>404 - Page Not Found</h1>
+      <Link className={s.link} to="/" >Go to Home Page</Link>
+    </div>
+  );
+};
 
 export default NotFoundPage;

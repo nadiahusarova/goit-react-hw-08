@@ -1,13 +1,19 @@
-
-import { Outlet } from 'react-router-dom';
+import React from 'react'; // Переконайтесь, що React імпортовано
+import { Link } from 'react-router-dom';
 import AppBar from '../AppBar/AppBar';
-import s from './Layout.module.css';
+import s from './Layout.module.css'; // Перевірте правильність імпорту CSS модуля
 
-const Layout = () => (
-  <div className={s.layout}>
-    <AppBar />
-    <Outlet />
-  </div>
-);
+const Layout = () => {
+  return (
+    <div className={s.container}>
+      <AppBar />
+      <main className={s.main}>
 
-export default Layout
+        <Link to="/">Home</Link>
+        <Link to="/contacts">Contacts</Link>
+      </main>
+    </div>
+  );
+};
+
+export default Layout;
