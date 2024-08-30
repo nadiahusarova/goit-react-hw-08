@@ -5,17 +5,17 @@ import NotFound from "./pages/NotFound/NotFound";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getMeThunk } from "./redux/auth/operations";
-import { PrivateRoure } from "./Routes/PrivateRoute";
+import { PrivateRoute } from "./Routes/PrivateRoute";
 import { RestrictedRoute } from "./Routes/RestrictedRoute";
 import { selectIsRefreshing } from "./redux/auth/selectors";
-import LoginForm from "./pages/LoginPage/LoginPage";
-import RegisterForm from "./pages/RegistrationPage/RegistrationPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import ContactsPage from "./pages/ContactsPage/ContactsPage";
-
 
 const App = () => {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
+
   useEffect(() => {
     dispatch(getMeThunk());
   }, [dispatch]);
@@ -28,9 +28,9 @@ const App = () => {
           <Route
             path="/contacts"
             element={
-              <PrivateRoure>
+              <PrivateRoute>
                 <ContactsPage />
-              </PrivateRoure>
+              </PrivateRoute>
             }
           />
         </Route>
@@ -38,7 +38,7 @@ const App = () => {
           path="/login"
           element={
             <RestrictedRoute>
-              <LoginForm />
+              <LoginPage />
             </RestrictedRoute>
           }
         />
@@ -46,7 +46,7 @@ const App = () => {
           path="/register"
           element={
             <RestrictedRoute>
-              <RegisterForm />
+              <RegistrationPage />
             </RestrictedRoute>
           }
         />

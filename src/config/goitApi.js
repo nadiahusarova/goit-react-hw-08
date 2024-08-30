@@ -9,5 +9,5 @@ export const setToken = (token) => {
 };
 
 export const clearToken = () => {
-  goitApi.defaults.headers.common.Authorization = ``;
+  goitApi.defaults.headers.common.Authorization = "";
 };
