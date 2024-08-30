@@ -1,3 +1,4 @@
+
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
@@ -21,38 +22,36 @@ const App = () => {
   }, [dispatch]);
 
   return isRefreshing ? null : (
-    <>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route
-            path="/contacts"
-            element={
-              <PrivateRoute>
-                <ContactsPage />
-              </PrivateRoute>
-            }
-          />
-        </Route>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
         <Route
-          path="/login"
+          path="/contacts"
           element={
-            <RestrictedRoute>
-              <LoginPage />
-            </RestrictedRoute>
+            <PrivateRoute>
+              <ContactsPage />
+            </PrivateRoute>
           }
         />
-        <Route
-          path="/register"
-          element={
-            <RestrictedRoute>
-              <RegistrationPage />
-            </RestrictedRoute>
-          }
-        />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </>
+      </Route>
+      <Route
+        path="/login"
+        element={
+          <RestrictedRoute>
+            <LoginPage />
+          </RestrictedRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <RestrictedRoute>
+            <RegistrationPage />
+          </RestrictedRoute>
+        }
+      />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 };
 
